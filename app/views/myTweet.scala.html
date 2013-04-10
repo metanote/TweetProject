@@ -1,0 +1,10 @@
+@(twt:String)
+@import helper._
+@main("MyTweet") {
+
+@@form(action= routes.Application.deleteTweet(twt))
+ Tweet :   <h2>@twt</h2>
+<input type="submit" value="Delete">
+<a href="@routes.Application.index">back</a>
+
+}

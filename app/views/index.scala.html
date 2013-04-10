@@ -1,0 +1,21 @@
+@(tweets:List[Tweet],tweetForm:Form[Tweet])
+@import helper._
+@main("My Tweeter") {
+<h1>Submit Tweets</h1>
+    @form(routes.Application.submitTweet){
+     <br><br><h3>My Tweet</h3>
+        <input type="text" name="tweet" size="35">
+        <input type="submit" value="submitTweet">
+
+    }
+    <hr>
+@if(tweets.length!=0){
+
+ <h2>We have @tweets.size tweet(s)</h2>
+    @for(twt <- tweets) {
+    <li>@twt.tweet</li>
+    Date : @twt.update <a href="routes.Application.getTweet(twt.tweet)" >view</a>
+    }
+  }
+
+}
