@@ -3,10 +3,20 @@
 # ~~~~
 
 # Home page
+
+GET     /echo$t<.*>                        controllers.Echo.get(t: String)
+POST    /echo$t<.*>                        controllers.Echo.post(t: String)
+PUT     /echo$t<.*>                        controllers.Echo.put(t: String)
+#DELETE  /echo$t<.*>                        controllers.Echo.delete(t: String)
+
 GET     /                           controllers.Application.index
 POST    /                           controllers.Application.submitTweet
-#GET    /myTweet/:t                 controllers.Application.viewTweet(t:String)
-#GET    /deleteTweet/:t             controllers.Application.deleteTweet(t:String)
+GET     /:t                         controllers.Application.viewTweet(t:String)
+#GET     /myTweet/:t                 controllers.Application.test(t:String)
+
+
+
+GET       /myTweet/:t                      controllers.Application.deleteTweet(t:String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

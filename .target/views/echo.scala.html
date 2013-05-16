@@ -1,0 +1,11 @@
+@(path:String,req: Request[RawBuffer])
+@main("HTTP Methods"){
+    <h2>Path @path</h2>
+    <h2> Headers for @{req.method}</h2>
+<table border="2">
+    @for((elem,valu) <- req.headers.toMap.toSeq){<tr><td>@elem</td><td>@valu</td></tr>}
+</table>
+
+    <h2>Body</h2>
+<table><tr><td><pre>@{req.body.asBytes().map(new String(_,"ASCII"))}</pre></td></tr></table>
+}

@@ -22,11 +22,6 @@ mapping(
     Ok(views.html.index(Tweet.allTweets(),tweetForm))
   }
   //index une fontion qui permet de envoyer le formulaire
- /*
-  def tweets = Action {
-    Ok(views.html.index(Tweet.all(),tweetForm))
-  }
-   */
 
   def submitTweet = Action { implicit req =>
     tweetForm.bindFromRequest.fold(
@@ -39,13 +34,15 @@ mapping(
   }
 //envoyer un nouveau tweet
 
-  def deleteTweet=TODO
- /* def viewTweet=Action{  implicit req =>
-    allTweets()
-    Ok(views.html.myTweet)
+ def deleteTweet(twt:String)=Action { implicit request =>
+     val l= delTweet(twt)
+ Ok(views.html.index(l,tweetForm))
+ }
 
-  }*/
+ def viewTweet(t:String)=Action{  implicit req =>
 
+    Ok(views.html.myTweet(t))
+  }
 }
 case class Tweet(tweet:String, update:Date, url: URL)
 object Tweet{
@@ -63,8 +60,20 @@ object Tweet{
    tweetDB = t :: tweetDB
    tweetDB
   }
+
   def allTweets():List[Tweet]=tweetDB
   def apply(t:String): Tweet = Tweet(t,update =new Date(),createUrl)
 
-  //def delete(t:String):Tweet{}
-}
+ def removeFromList(t:Tweet):List[Tweet]={
+   val (r,l)=tweetDB.span(_.url!=t.url)
+   r ::: l.tail
+ }
+
+  def delTweet(t: String):List[Tweet] = {
+    val ts : List[Tweet] = allTweets()
+    val (head, tai) = ts.span(_.tweet!=t)
+   tweetDB=head ::: tai.tail
+    tweetDB
+    }
+
+  }
